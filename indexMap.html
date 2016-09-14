@@ -19,6 +19,20 @@
 </html>
 <script>
 
+    // 地圖響應事件
+    var mapCallBackFunction = {
+        // 地圖縮放
+        zoomChange: function ( data )
+        {
+            console.log( data );
+        }
+        // 第一層單擊事件
+        , mainClick: function ( data )
+        {
+            console.log( data );
+        }
+    }
+
     google.maps.event.addDomListener( window, 'load', VMPMapinitGoogleMap );
     $( function ()
     {

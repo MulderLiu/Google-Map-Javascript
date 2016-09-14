@@ -49,18 +49,25 @@ function VMPMapinitGoogleMap( objData )
 
     VMPMapmap.addListener( 'zoom_changed', function ()
     {
+        var zoom = VMPMapmap.getZoom();
         //console.log( VMPMapmap.getZoom() )
         setMapOnAll( null )
 
-        if ( VMPMapmap.getZoom() <= limitMain )
+        // callback 
+        if ( typeof mapCallBackFunction.zoomChange == "function" )
+        {
+            mapCallBackFunction.zoomChange( zoom );
+        }
+
+        if ( zoom <= limitMain )
         {
             drawFlag( mainOffice, imageRed )
         }
-        else if ( VMPMapmap.getZoom() <= limitSub )
+        else if ( zoom <= limitSub )
         {
             drawFlag( subOffice, imageBlue )
         }
-        else if ( VMPMapmap.getZoom() > limitSub )
+        else if ( zoom > limitSub )
         {
             drawFlag( endOffice, imageGreen )
         }
@@ -138,19 +145,19 @@ function drawFlag( dataContent, image, key )
         //    // ,label :"基隆分局"
         //} );
 
-       // 使用畫圖
-      var  beachMarker = new google.maps.Marker( {
+        // 使用畫圖
+        var beachMarker = new google.maps.Marker( {
             position: coordinate
-               , map: VMPMapmap
+                 , map: VMPMapmap
             //, animation: google.maps.Animation.DROP
-               , icon: {
-                   path: google.maps.SymbolPath.CIRCLE
-                   , scale: 50
-                   , fillColor: '#BB85CC'
-                   , fillOpacity: 0.8
-                   , strokeColor: '#BB85CC'
-                   , strokeWeight: 1
-               }
+                 , icon: {
+                     path: google.maps.SymbolPath.CIRCLE
+                     , scale: 50
+                     , fillColor: '#BB85CC'
+                     , fillOpacity: 0.8
+                     , strokeColor: '#BB85CC'
+                     , strokeWeight: 1
+                 }
         } );
 
         clearMarkers.push( beachMarker )
