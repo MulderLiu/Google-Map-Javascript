@@ -6,7 +6,7 @@ function MarkerShow( map, coordinate, data )
      new google.maps.LatLng( coordinate.lat, coordinate.lng ) );
 
     var zoom = map.getZoom();
-    this.datas_=data
+    this.datas_ = data
     this.bounds_ = bounds;
     this.map_ = map;
     this.setMap( map );
@@ -23,13 +23,23 @@ MarkerShow.prototype.onAdd = function ()
     div.style.borderStyle = 'none';
     div.style.borderWidth = '0px';
     div.style.position = 'absolute';
-  //  div.style.backgroundColor = "blue"
+    //  div.style.backgroundColor = "blue"
     var zoom = this.map.getZoom();
-    var con = "<h4>" + this.datas_.name + "</h4>"
+
+    var con;
+    if ( zoom <= 12 )
+    {
+        con = "<h4>" + this.datas_.name + "</h4>";
+    }
+    else
+    {
+        con = '<div style = "background-color:#BB85CC" style="height:80px:width:80px" ><p>' + this.datas_.name + '間 ' + this.datas_.name + ' </p</div>';
+    }
+
     div.innerHTML = con;
 
     this.div_ = div;
-    var panes = this.getPanes();  
+    var panes = this.getPanes();
     //panes.overlayMouseTarget.appendChild( this.div_ );
     panes.overlayImage.appendChild( this.div_ );
 };
@@ -64,8 +74,8 @@ MarkerShow.prototype.draw = function ()
 
     //div.style.left = ( sw.x - size.width / 2 ) + 'px';
     //div.style.top = ( ne.y + -size.height / 2 ) + 'px';
-    div.style.left = ( sw.x +18) + 'px';
-    div.style.top = ( ne.y -35) + 'px';
+    div.style.left = ( sw.x + 18 ) + 'px';
+    div.style.top = ( ne.y - 35 ) + 'px';
 };
 
 // 刪除標記

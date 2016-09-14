@@ -3,7 +3,7 @@ var VMPMapmap = null;
 
 
 //var taiwan = { name: "臺灣", lat: 23.9036873, lng: 121.0793705, zoom: 8 };
-var taiwan = { name: "基隆",lat: 25.132677, lng: 121.746782, zoom: 10 };
+var taiwan = { name: "基隆", lat: 25.132677, lng: 121.746782, zoom: 10 };
 
 var imageBlue = 'themes/images/b11.png';
 var imageRed = 'themes/images/r11.png';
@@ -120,22 +120,39 @@ function drawFlag( dataContent, image, key )
         //console.log(data)
         var coordinate = { lat: data.lat, lng: data.lng }
 
-        var beachMarker = new google.maps.Marker( {
-            position: coordinate,
-            map: VMPMapmap,
-            icon: {
-                url: image
-            }
-            //icon: {
-            //    path: google.maps.SymbolPath.CIRCLE,
-            //    scale: 14
-            //    , fillColor: 'red',
-            //    fillOpacity: 1,
-            //    strokeColor: 'red'
-            //}
-            , animation: google.maps.Animation.DROP
-            // ,label :"基隆分局"
+        //使用圖片
+        //var beachMarker = new google.maps.Marker( {
+        //    position: coordinate,
+        //    map: VMPMapmap,
+        //    icon: {
+        //        url: image
+        //    }
+        //    //icon: {
+        //    //    path: google.maps.SymbolPath.CIRCLE,
+        //    //    scale: 14
+        //    //    , fillColor: 'red',
+        //    //    fillOpacity: 1,
+        //    //    strokeColor: 'red'
+        //    //}
+        //    , animation: google.maps.Animation.DROP
+        //    // ,label :"基隆分局"
+        //} );
+
+       // 使用畫圖
+      var  beachMarker = new google.maps.Marker( {
+            position: coordinate
+               , map: VMPMapmap
+            //, animation: google.maps.Animation.DROP
+               , icon: {
+                   path: google.maps.SymbolPath.CIRCLE
+                   , scale: 50
+                   , fillColor: '#BB85CC'
+                   , fillOpacity: 0.8
+                   , strokeColor: '#BB85CC'
+                   , strokeWeight: 1
+               }
         } );
+
         clearMarkers.push( beachMarker )
         showinfomessage( beachMarker, data )
 
@@ -155,7 +172,7 @@ function showinfomessage( marker, data )
 {
     var infowindow = new google.maps.InfoWindow(
       {
-          content: "<div><h3>" + data.name + "</h3><p>" + " ［手槍］ 在庫" + data.gun1in + ",  出勤" + data.gun1out + ",  <lable style='color:red'> 異常"+data.errorCount+"</lable>"  +"</p><p>" + " ［長槍］ 在庫" + data.gun2in + ",  出勤" + data.gun2out + ",  <lable style='color:red'> 異常"+data.errorCount+"</lable>"  + "</p></div>" 
+          content: "<div><h3>" + data.name + "</h3><p>" + " ［手槍］ 在庫" + data.gun1in + ",  出勤" + data.gun1out + ",  <lable style='color:red'> 異常" + data.errorCount + "</lable>" + "</p><p>" + " ［長槍］ 在庫" + data.gun2in + ",  出勤" + data.gun2out + ",  <lable style='color:red'> 異常" + data.errorCount + "</lable>" + "</p></div>"
       } );
 
     // 顯示提示信
